@@ -73,6 +73,7 @@ namespace FileSorting.FileSorting
                     {
                         string tempFileName = $"chunk_{Guid.NewGuid()}.tmp";
                         FillTempFile(tempFileName, chunk);
+                        Console.WriteLine($"Created chunk {tempFileName} .");
                         tempFileNames.Add(tempFileName);
                     }
                     return tempFileNames.ToArray();
