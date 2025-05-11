@@ -24,6 +24,7 @@ namespace FileCreationDemo
                 BlockingCollectionCapacity = 10000
             };
             var fileGenerator = new FileGenerator(stringGenerator, options);
+            Console.WriteLine($"Starting file generation");
 
             fileGenerator.GenerateFile(fileName);
 
