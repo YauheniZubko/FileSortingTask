@@ -14,11 +14,11 @@ public class ExternalSortTests
     [SetUp]
     public void Setup()
     {
-        IComparer<LineContent> comparer = new LinesContentComparer();
-        IParser<LineContent> parser = new LineContentParser();
-        IChunksSplitter chunksSplitter = new ChunksSplitter(comparer, parser);
-        IChunksMerger chunksMerger = new ChunksMerger(comparer, parser);
-        FileSorter sorter = new FileSorter(comparer, parser, chunksSplitter, chunksMerger);
+        comparer = new LinesContentComparer();
+        parser = new LineContentParser();
+        chunksSplitter = new ChunksSplitter(comparer, parser);
+        chunksMerger = new ChunksMerger(comparer, parser);
+        sortManger = new FileSorter(comparer, parser, chunksSplitter, chunksMerger);
     }
 
     [Test]
