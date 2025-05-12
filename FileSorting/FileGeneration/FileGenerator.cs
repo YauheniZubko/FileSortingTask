@@ -18,15 +18,16 @@ namespace FileSorting.FileGeneration
         public int FileSizeMB { get; set; }
         public int BatchSizeBytes { get; set; }
         public int ThreadCount { get; set; }
-        public int BlockingCollectionCapacity { get; set; }
     }
 
     public class FileGenerator : IFileGenerator
     {
+        private const int _blockingCollectionCapacity = 1000;
+
         private readonly int _batchSize;
         private readonly int _fileSizeMB;
         private readonly int _threadCount;
-        private readonly int _blockingCollectionCapacity;
+
         private IStringGenerator _stringGenerator;
 
         public FileGenerator(IStringGenerator stringGenerator, FileGeneratorOptions options)
@@ -36,7 +37,6 @@ namespace FileSorting.FileGeneration
             _batchSize = options.BatchSizeBytes;
             _fileSizeMB = options.FileSizeMB;
             _threadCount = options.ThreadCount;
-            _blockingCollectionCapacity = options.BlockingCollectionCapacity;
 
             _stringGenerator = stringGenerator;
         }
@@ -100,8 +100,6 @@ namespace FileSorting.FileGeneration
                 throw new ArgumentOutOfRangeException(nameof(options.FileSizeMB), "FileSizeMB must be greater than 0.");
             if (options.ThreadCount <= 0)
                 throw new ArgumentOutOfRangeException(nameof(options.ThreadCount), "ThreadCount must be greater than 0.");
-            if (options.BlockingCollectionCapacity <= 0)
-                throw new ArgumentOutOfRangeException(nameof(options.BlockingCollectionCapacity), "BlockingCollectionCapacity must be greater than 0.");
         }
     }
 }

@@ -13,6 +13,8 @@ namespace FileSorting.FileSorting
     }
     public class ChunksSplitter : IChunksSplitter
     {
+        private const int _blockingCollectionCapacity = 1000;
+
         private IComparer<LineContent> _comparer;
         private IParser<LineContent> _parser;
 
@@ -24,7 +26,7 @@ namespace FileSorting.FileSorting
 
         public async Task<List<string>> SplitIntoChunksAsync(string inputFile, int maxLinesInChunk)
         {
-            var chunks = new BlockingCollection<List<LineContent>>(boundedCapacity: 1000);
+            var chunks = new BlockingCollection<List<LineContent>>(_blockingCollectionCapacity);
             var producer = Task.Run(() => FillChunksCollection(inputFile, maxLinesInChunk, chunks));
 
             List<string> tempFiles = await FillTempFiles(chunks);
